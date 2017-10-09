@@ -6,29 +6,39 @@ set -o nounset
 
 #usage() { echo "Usage: $0 [prepare|download|check|start|continue|report] <options>" }
 
+source bin/i_download.sh
+source bin/i_prepare.sh
+source bin/i_check.sh
+source bin/i_run.sh
+source bin/i_report.sh
+
 case "$1" in
-  "prepare" )
-    echo "Prepare"
-    bin/i_prepare.sh
-    ;;
   "download" )
     echo "Download"
-    bin/i_download.sh
+    makeDirectories
+    getSoftware
+    get1000G
+    ;;
+  "prepare" )
+    echo "Prepare"
+#    prepare
     ;;
   "check" )
     echo "Check"
-    bin/i_check.sh
+#    check
     ;;
   "start" )
     echo "Start"
+#    clearData
+#    resume    # from start!
     ;;
   "resume" )
     echo "Resume"
-    bin/i_run.sh
+#    resume
     ;;
   "report" )
-    echo "Resume"
-    bin/i_report.sh
+    echo "Report"
+#    report
     ;;
   * )
     usage

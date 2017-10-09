@@ -7,8 +7,6 @@ colnames(r2) <- c("Gene","Chr","Start","End")
 r2 <- r2[!grepl("_",Chr) & ! grepl("chrY",Chr)]
 r2 <- r2[,Chr:=gsub("chr","",Chr)]
 
-print(r2)
-
 genes <- c()
 for (g1 in unique(r2$Gene)) {
   for (g2 in split(r2[Gene==g1],by="Chr")) {
