@@ -1,0 +1,17 @@
+@startuml
+(*) --> "Install software" as IS
+note right: plink; 
+
+
+
+'left to right direction
+(*) --> "Sample\nPreparation" as SP
+--> "Library\nPreparation" as LP
+note right: Illumina\nNextera
+--> "Sequence\nFASTQ" as SF
+--> "QC\nTrim" as QT
+note right: FastQC\nTrimmomatic
+--> "Align\nAssemble" as AA
+--> "SNPs\nStatistics..." as SS
+--> (*)
+@enduml
