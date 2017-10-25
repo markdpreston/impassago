@@ -8,6 +8,9 @@ my ($psFile1, $psFile2, $psTemp) = @ARGV[0..2];
 `mkdir -p $psTemp`;
 `rm -f $psTemp/*`;
 
+#
+#  Run SHAPEIT on each chromosome of the (small) input datasets.
+#
 my @laMissing = ();
 for (my $i = 1; $i <= 25; $i++) { # Missing 26 - mitochondrial
   print "Chr: $i\n";
@@ -33,4 +36,7 @@ open H, ">snps.$psTemp" or die("$psTemp\n");
 print H join("\n",@laMissing) . "\n";
 close H;
 
+#
+#  Perform a PLINK filter on the missing SNPs.
+#
 `../bin/plink --noweb --bfile $psFile1 --exclude snps.$psTemp --make-bed --out $psFile2`;

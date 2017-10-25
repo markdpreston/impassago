@@ -17,6 +17,9 @@ my %lhRemove;
 my %lhFlip;
 my %lhFound;
 
+#
+#  Identify BIM entries with dups (possibly), chr 26 or insertion/deletions (I/D).
+#
 open H, "$psFile1.bim" or die("Error opening bim file\n");
 while (<H>) {
   chomp;
@@ -34,6 +37,9 @@ foreach my $lsRemove (keys(%lhRemove)) {
   delete $lhAll{$lsRemove};
 }
 
+#
+#  Use the 1000G phased LEGEND file to correct phasing (i.e. flip some SNPs).
+#
 for (my $i = 1; $i <= 25; $i++) {  # No 26 - mitochondrial!
   print "Chr: $i\n";
 ##  open H, "gunzip -c ../1000G/1000GP_Phase3/1000GP_Phase3_chr${i}.legend.gz |" or die("Error opening $i legend file\n");
@@ -61,7 +67,9 @@ for (my $i = 1; $i <= 25; $i++) {  # No 26 - mitochondrial!
   }
   close H;
 }
-
+#
+#  Record changes/excluded SNPs.
+#
 open H, ">snps.remove";
 print H join("\n",values(%lhRemove)) . "\n";
 close H;
@@ -86,5 +94,8 @@ open H, ">snps.missing";
 print H join("\n",keys(%lhAll)) . "\n";
 close H;
 
+#
+#  Run PLINK to exclude more SNPs and flip SNPs
+#
 `../bin/plink --bfile $psFile1 --exclude snps.remove --chr 1-25 --make-bed --out $psFile2`;
 `../bin/plink --bfile $psFile2 --flip snps.flip --make-bed --out $psFile3`;

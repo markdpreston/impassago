@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 #set -o xtrace
 
-#usage() { echo "Usage: $0 [prepare|download|check|start|continue|report] <options>" }
+#usage() { echo "Usage: $0 [download|check|filter|start|continue|report] <options>" }
 
 source bin/i_download.sh
 source bin/i_prepare.sh
@@ -19,13 +19,13 @@ case "$1" in
     getSoftware
     get1000G
     ;;
-  "prepare" )
-    echo "Prepare"
-#    prepare
-    ;;
   "check" )
     echo "Check"
 #    check
+    ;;
+  "filter" )
+    echo "filter"
+    filter
     ;;
   "start" )
     echo "Start"
