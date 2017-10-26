@@ -84,7 +84,9 @@ get1000G() {
   wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3_chrX.tgz
   tar zxvf 1000GP_Phase3.tgz
   tar zxvf 1000GP_Phase3_chrX.tgz
-  gunzip 1000GP_Phase3/*.legend.gz
+  gunzip 1000GP_Phase3/*.legend.gz *.legend.gz
+  ln -s ../1000GP_Phase3_chrX_NONPAR.hap.gz 1000GP_Phase3/1000GP_Phase3_chr23.hap.gz
+  ln -s ../1000GP_Phase3_chrX_NONPAR.legend 1000GP_Phase3/1000GP_Phase3_chr23.legend
 
   #  Download gene annotation table.
   wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refFlat.txt.gz
