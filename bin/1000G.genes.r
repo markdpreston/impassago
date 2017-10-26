@@ -1,7 +1,8 @@
 #!/usr/bin/Rscript
+library("data.table")
 library("IRanges")
 
-r1 <- fread("1000G/b37hg19.refFlat.tsv",header=F)
+r1 <- fread("b37hg19.refFlat.tsv",header=F)
 r2 <- r1[,c(1,3,5,6)]
 colnames(r2) <- c("Gene","Chr","Start","End")
 r2 <- r2[!grepl("_",Chr) & ! grepl("chrY",Chr)]
@@ -19,5 +20,5 @@ colnames(genes) <- c("Gene","Chr","Start","End")
 genes <- genes[,Start:=as.numeric(Start)]
 genes <- genes[,End:=as.numeric(End)]
 genes <- genes[order(Chr,Start,End)]
-write.table(genes,file="1000G/b37hg19.genes2.tsv",row.names=F,quote=F,sep="\t")
+write.table(genes,file="b37hg19.genes2.tsv",row.names=F,quote=F,sep="\t")
 

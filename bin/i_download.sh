@@ -31,9 +31,11 @@ makeDirectories() {
 #
 #
 getSoftware() {
-  cd bin
+  mkdir -p bin2
+  cd bin2
 
-  wget https://www.cog-genomics.org/static/bin/plink161010/plink_linux_x86_64.zip
+#  wget https://www.cog-genomics.org/static/bin/plink161010/plink_linux_x86_64.zip
+  wget https://www.cog-genomics.org/static/bin/plink171013/plink_linux_x86_64.zip
   unzip plink_linux_x86_64.zip
   rm -f LICENSE toy.ped toy.map
 
@@ -82,11 +84,12 @@ get1000G() {
   wget https://mathgen.stats.ox.ac.uk/impute/1000GP_Phase3_chrX.tgz
   tar zxvf 1000GP_Phase3.tgz
   tar zxvf 1000GP_Phase3_chrX.tgz
+  gunzip 1000GP_Phase3/*.legend.gz
 
   #  Download gene annotation table.
   wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refFlat.txt.gz
   gunzip refFlat.txt.gz
-  mv refFlat.txt b37hg19refFlat.tsv
+  mv refFlat.txt b37hg19.refFlat.tsv
   ../bin/1000G.genes.r     # check relative directories!
 
   cd ..
