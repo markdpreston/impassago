@@ -4,25 +4,6 @@ set -o errexit
 set -o nounset
 #set -o xtrace
 
-checkFile() {
-  if [ ! -e $1 ]; then echo "- Missing $2"; error=1; fi
-}
-
-checkFiles() {
-  error=0
-  checkFile "data.bim" "PLINK input file: input/data.bim"
-  checkFile "data.fam" "PLINK input file: input/data.fam"
-  checkFile "data.bed" "PLINK input file: input/data.bed"
-  checkFile "../bin/plink"     "Executable: bin/plink"
-  checkFile "../bin/shapeit2"  "Executable: bin/shapeit2"
-  checkFile "../bin/emmax-kin" "Executable: bin/emmax-kin"
-  checkFile "../bin/filterDuplicates.pl" "Perl Script: bin/filterDuplicates.pl"
-  checkFile "../bin/filterData.pl"       "Perl Script: bin/filterData.pl"
-  checkFile "../bin/filterShapeit.pl"    "Perl Script: bin/filterShapeit.pl"
-  checkFile "../bin/filterPhenotypes.r" "R Script: bin/filterPhenotypes.r"
-  if [ $error == 1 ]; then echo "filter: check FAIL"; exit 1; fi
-}
-
 filterStep1() {
   #  Anonymise/remove family relations from the input data - familial relations determined by genotype.
   echo "- Step 1"
@@ -84,6 +65,8 @@ reportFilter() {
 #
 #
 filter() {
+  checkFilter "EXIT" # Check required files/programs for this script
+
   #  Prepare for filtering input including removing previously processed data
   data="data"
   cd input
@@ -91,7 +74,6 @@ filter() {
   rm -f process.?.*
   rm -f tmp.*
 
-  checkFiles   # Check data bfiles
   filterStep1  # FAM related files
   filterStep2  # X chromosome
   filterStep3  # Remove SNPs

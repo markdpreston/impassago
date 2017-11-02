@@ -4,13 +4,13 @@ set -o errexit
 set -o nounset
 #set -o xtrace
 
-usage() { echo "Usage: $0 [download|check|filter|start|continue|report] <options>"; exit; }
+usage() { echo "Usage: $0 [download|check|filter|impute|gwas|permute|pathways|report] <options>"; exit; }
 if [ -z "${1:-}" ]; then usage; fi
 
 source bin/i_download.sh
 source bin/i_check.sh
 source bin/i_filter.sh
-source bin/i_run.sh
+source bin/i_impute.sh
 source bin/i_report.sh
 
 case "$1" in
@@ -22,14 +22,18 @@ case "$1" in
     ;;
   "check" )
     echo "Check"
-#    check
+    checkAll
     ;;
   "filter" )
     echo "filter"
     filter
     ;;
+  "impute" )
+    echo "impute"
+    impute
+    ;;
   "start" )
-    echo "Start"
+    echo "start"
 #    clearData
 #    resume    # from start!
     ;;

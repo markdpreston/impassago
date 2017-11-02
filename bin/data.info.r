@@ -13,8 +13,8 @@ setwd(dir)
 
 cat("Args:",dir,chr,"\n")
 cat("Start final\n")
-tbim <- fread(sprintf("data/%s_final.tbim",chr))
-frq <- unique(fread(sprintf("data/%s_final.frq",chr)))
+tbim <- fread(sprintf("data/%s.final.tbim",chr))
+frq <- unique(fread(sprintf("data/%s.final.frq",chr)))
 
 print(dim(frq))
 print(dim(tbim))
@@ -55,4 +55,4 @@ tmp4$GENES <- sapply(tmp4$POS, function(x) {
 })
 cat("End reference\n")
 
-write.table(tmp4,sprintf("data/%s_final.snpinfo",chr),row.names=F,col.names=F,quote=F,sep="\t")
+write.table(tmp4,sprintf("data/%s.final.snpinfo",chr),row.names=F,col.names=F,quote=F,sep="\t")
