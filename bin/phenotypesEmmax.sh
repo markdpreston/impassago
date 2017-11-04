@@ -1,14 +1,13 @@
 #!/bin/bash
 
-dir=$1
-phenotype=$2
-chr=$3
-count=$4
+phenotype=$1
+chr=$2
+count=$3
 
-printf -v chr02d "%02d" "$chr"
+printf -v chr02d   "%02d" "$chr"
+printf -v count05d "%05d" "$count"
 
-echo $phenotype $chr $count
-cd $dir/phenotypes
-echo ../bin/emmax -v -d 10 -t ../data/${chr}_final -p emmax/$phenotype/$count/phenotypes -k ../input/process.11.IBS.kinf -o emmax/$phenotype/$count/$chr02d
-../bin/emmax -v -d 10 -t "../data/${chr}_final" -p "emmax/$phenotype/$count/phenotypes" -k ../input/process.11.IBS.kinf -o "emmax/$phenotype/$count/$chr02d"
-pigz -p 4 emmax/$phenotype/$count/$chr02d.ps
+echo $phenotype $chr02d $count05d
+mkdir -p gwas/$phenotype/$count05d/
+bin/emmax -v -d 10 -t "data/$chr.final" -p "gwas/$phenotype/$count05d/phenotypes" -k input/process.10.IBS.kinf -o "gwas/$phenotype/$count05d/$chr02d"
+pigz -p 4 gwas/$phenotype/$count05d/$chr02d.ps
