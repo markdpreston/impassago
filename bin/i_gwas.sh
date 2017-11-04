@@ -11,7 +11,7 @@ reportGwas() {
 impute() {
   count=${1:1000}
   checkGwas "EXIT"
-  phenotypes=`head -n1 input/data.phenotypes | cut -f7-`
+  phenotypes=`head -n1 input/data.phenotypes.tsv | cut -f7-`
   for p in $phenotypes
   do
     bin/phenotypesMake.r $p $count
