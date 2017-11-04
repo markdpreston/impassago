@@ -32,7 +32,9 @@ checkImpute() {
   checkFile "bin/plink"     "Executable: bin/plink"
   checkFile "bin/shapeit2"  "Executable: bin/shapeit2"
   checkFile "bin/impute2"   "Executable: bin/impute2"
-  checkFile "bin/data.info.r" "R Script: bin/data.info.r"
+  checkFile "bin/dataShapeit.sh" "Bash Script: bin/dataShapeit.r"
+  checkFile "bin/dataImpute.sh"  "Bash Script: bin/dataImpute.r"
+  checkFile "bin/dataInfo.r" "R Script: bin/dataInfo.r"
   if [ $error == 1 ] ; then echo "impute: check FAIL"; fi
   if [ $error == 1 ] && [ $1 == "EXIT" ] ; then exit 1; fi
 }
